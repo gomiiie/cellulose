@@ -5,7 +5,7 @@ class Conway:
     self.next = 1
     def __init__(self, grid_x, grid_y):
         self.grid_x, self.grid_y = grid_x, grid_y
-        self.grid = [[[for _ in range(2)] for _ in range(grid_y)] for _ in range(grid_x)]
+        self.grid = [[[0 for _ in range(2)] for _ in range(grid_y)] for _ in range(grid_x)]
 
     def randomInit(self):
         for x in range(self.grid_x):
@@ -28,17 +28,16 @@ class Conway:
                 neighbours = self.neighbourCount(x,y)
 
                 if cell[self.current] == 1:
-                    #underpopulation
-                    if neighbours < 2:
-                        cell[self.next] = 0
-                        continue
-                    #overpopulation
-                    elif neighbours > 3:  
+                    if neighbours < 2:      #underpopulation
                         cell[self.next] = 0
                         continue
 
+                    elif neighbours > 3:    #overpopulation 
+                        cell[self.next] = 0
+                        continue
+                
                 elif cell[self.current] == 0:
-                    if neighbours == 3:
+                    if neighbours == 3:     #reproduction
                         cell[self.next] = 1
                         continue
 
