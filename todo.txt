@@ -1,0 +1,3 @@
+- Infinite grid + Dragging
+- Population Tracker
+- Generation Tracker

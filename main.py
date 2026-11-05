@@ -6,7 +6,7 @@ screen_width = 631
 screen_height = 631
 square_size = 10
 grid_width = 1
-grid_color = (242,242,242)
+grid_color = (75,75,75)
 square_color = (255,255,255)
 
 

@@ -20,6 +20,9 @@ class Conway:
         self.grid[cx+2][cy+1][self.current] = 1
         self.grid[cx+2][cy+2][self.current] = 1
 
+
+
+
     def neighbourCount(self, row, col):
         sum = 0
         for i in range(-1,2):
