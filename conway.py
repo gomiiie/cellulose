@@ -1,8 +1,8 @@
 import random
 
 class Conway:
-    self.current = 0
-    self.next = 1
+    current = 0
+    next = 1
     def __init__(self, grid_x, grid_y):
         self.grid_x, self.grid_y = grid_x, grid_y
         self.grid = [[[0 for _ in range(2)] for _ in range(grid_y)] for _ in range(grid_x)]
@@ -14,16 +14,20 @@ class Conway:
 
     def neighbourCount(self, x, y):
         sum = 0
-        for i in range(3):
-            for j in range(3):
-                if (i == 1 and j == 1):
+        for i in range(-1,2):
+            for j in range(-1,2):
+                if (i == 0 and j == 0):
                     continue
-                sum += self.grid[x+i-1][y+j-1][self.current]
+                neighbour_X = (x+i) % self.grid_x
+                neighbour_Y = (y+i) % self.grid_y
+                sum += self.grid[neighbour_X][neighbour_Y][self.current]
         return sum
 
     def updateGrid(self):
         for x in range(self.grid_x):
             for y in range(self.grid_y):
+                if x == self.grid_x or y == self.grid_y:
+                    continue    
                 cell = self.grid[x][y]
                 neighbours = self.neighbourCount(x,y)
 
