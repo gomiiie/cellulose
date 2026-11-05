@@ -3,33 +3,39 @@ import random
 class Conway:
     current = 0
     next = 1
-    def __init__(self, grid_x, grid_y):
-        self.grid_x, self.grid_y = grid_x, grid_y
-        self.grid = [[[0 for _ in range(2)] for _ in range(grid_y)] for _ in range(grid_x)]
+    def __init__(self, rows, cols):
+        self.rows, self.cols = rows, cols
+        self.grid = [[[0 for _ in range(2)] for _ in range(cols)] for _ in range(rows)]
 
-    def randomInit(self):
-        for x in range(self.grid_x):
-            for y in range(self.grid_y):
+    def initRandom(self):
+        for x in range(self.rows):
+            for y in range(self.cols):
                 self.grid[x][y][0] = random.randint(0,1)
 
-    def neighbourCount(self, x, y):
+
+    def initGlider(self, cx, cy):
+        self.grid[cx][cy+1][self.current] = 1
+        self.grid[cx+1][cy+2][self.current] = 1
+        self.grid[cx+2][cy][self.current] = 1
+        self.grid[cx+2][cy+1][self.current] = 1
+        self.grid[cx+2][cy+2][self.current] = 1
+
+    def neighbourCount(self, row, col):
         sum = 0
         for i in range(-1,2):
             for j in range(-1,2):
                 if (i == 0 and j == 0):
                     continue
-                neighbour_X = (x+i) % self.grid_x
-                neighbour_Y = (y+i) % self.grid_y
-                sum += self.grid[neighbour_X][neighbour_Y][self.current]
+                neighbour_row = (row+i) % self.rows
+                neighbour_col = (col+j) % self.cols
+                sum += self.grid[neighbour_row][neighbour_col][self.current]
         return sum
 
     def updateGrid(self):
-        for x in range(self.grid_x):
-            for y in range(self.grid_y):
-                if x == self.grid_x or y == self.grid_y:
-                    continue    
-                cell = self.grid[x][y]
-                neighbours = self.neighbourCount(x,y)
+        for row in range(self.rows):
+            for col in range(self.cols):  
+                cell = self.grid[row][col]
+                neighbours = self.neighbourCount(row,col)
 
                 if cell[self.current] == 1:
                     if neighbours < 2:      #underpopulation
